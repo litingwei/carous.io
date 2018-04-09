@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"><!-- 我们决定把三个点移动到图片里面 -->
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	.dot{
+		cursor:pointer;/* 光标呈现为指示链接的指针（一只手） */
+		width:10px;
+	    height:10px;
+		background-color: white;
+		border-radius: 50%;
+		display: inline-block;
+		/* transition: background-color 0.6s ease; */
+	}
+	.dot:hover{
+		background-color:  #717171;
+	}/* 鼠标放在span上时变色 */
+	.active{
+		background-color: #717171;
+	}
+	.mySlides{
+		display: none;
+		padding:0 auto;
+	}
+	.pre,.next{/* 修饰小于号和大于号 */
+		cursor: pointer;
+		position: absolute;
+		width: auto;
+		font-size:20px;
+		font-weight: bold;
+		padding: 13px;
+		margin-top:-25px;
+		top:50%;
+		color: white;
+	}
+	.next{
+		right:0;
+	}
+	.container{
+		width: 600px;
+		position: relative;
+		margin: 0 auto;
+	}
+	.fade{
+		animation-name:myfade;
+		animation-duration:1.5s;
+		-webkit-animation-name:myfade;/* Safari 和 Chrome */
+		-webkit-animation-duration:1.5s;
+	}
+	@keyframes myfade {
+		from {opacity: 0.4}
+		to {opacity: 1}
+	}
+	@-webkit-keyframes myfade {/* Safari and Chrome */
+		from {opacity: 0.4}
+		to {opacity: 1}
+	}
+	.text{
+		width: 100%;
+		text-align: center;
+		padding: 18px 5px;
+		position: absolute;
+		bottom:10px; 
+		color: white;
+	}
+	.dottop{
+		bottom:0;
+		position: absolute;
+		left:50%;
+		margin-left:-13px;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div onmouseover="aa()" onmouseout="cc()">
+			<div class="mySlides fade">
+				<img src="https://picsum.photos/601/300">
+				<div class="text">第一张图片</div>
+			</div>
+			<div class="mySlides fade">
+				<img src="https://picsum.photos/602/300">
+				<div class="text">第二张图片</div>
+			</div>
+			<div class="mySlides fade">
+				<img src="https://picsum.photos/603/300">
+				<div class="text">第三张图片</div>
+			</div>
+		</div>	
+		<span class="pre" onclick="plusSlides(-1)" >&#10094;</span><!-- 小于号，鼠标放上面的时候停止轮播，移走继续轮播 -->
+		<span class="next" onclick="plusSlides(1)" >&#10095;</span><!-- 大于号 -->
+		<div class="dottop">
+			<span class="dot" onclick="currentSlide(1)"></span>
+			<span class="dot" onclick="currentSlide(2)"></span>
+			<span class="dot" onclick="currentSlide(3)"></span>
+	    </div>
+	</div>	
+	
+	<script type="text/javascript">
+	var slides=document.getElementsByClassName("mySlides");
+	var dots=document.getElementsByClassName("dot");
+	var slideIndex=1;//slideIndex为全局变量，控制点击span和大于小于号时，变化的都是slideIndex
+	showSlides();//让第一张显示出来
+	function currentSlide(n){//把n值赋给slideIndex，调用showSlides
+		slideIndex=n;
+		showSlides();
+	}
+	function plusSlides(n){
+		slideIndex+=n;
+		showSlides();
+	}
+	function showSlides(){
+		if(slideIndex<1){
+			slideIndex=slides.length;
+		}//小于1则转到最后
+		if(slideIndex>slides.length){
+			slideIndex=1;
+		}//最后则转到开头
+		for(let i=0;i<slides.length;i++){
+		slides[i].style.display="none";
+		}
+		for(let i=0;i<dots.length;i++){
+			dots[i].className=dots[i].className.replace(" active","");
+		}
+		slides[slideIndex-1].style.display="block";
+		dots[slideIndex-1].className +=" active";
+	}
+	function plus(){
+		slideIndex+=1;
+		showSlides();
+	}	
+    var timer=null;
+    timer=setInterval(plus,5000);
+    function cc() {
+    	 timer=setInterval(plus,5000);
+    }
+    function aa() {
+    	clearInterval(timer);
+    }
+	</script>
+</body>
+</html>
